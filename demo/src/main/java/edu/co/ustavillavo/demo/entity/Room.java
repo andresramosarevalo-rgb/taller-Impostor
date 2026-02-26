@@ -25,8 +25,6 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private RoomStatus status;
 
-    //Guardamos el id del host y no puede ser null
-    @Column(nullable = false)
     private UUID hostPlayerId;
 
     @Column(nullable = false)

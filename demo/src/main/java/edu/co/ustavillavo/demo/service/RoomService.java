@@ -18,36 +18,36 @@ public class RoomService {
 
 
     //Constructor
-    private final RoomRepository roomRepository;
-    private final PlayerRepository playerRepository;
+    private final RoomRepository roomRepository;     //Esta clase depende de RoomRepository para funcionar
+    private final PlayerRepository playerRepository; //Esta clase depende de PlayerRepository para funcionar
 
     public CreateRoomResponse createRoom (CreateRoomRequest request) {
 
         String code = UUID.randomUUID().toString().substring(0, 6).toUpperCase();
 
         //Crear un room
-        Room room = new Room();
-        room.setCode(code);
-        room.setStatus(RoomStatus.LOBBY);
+        Room room = new Room(); //Crea un room en la memoria no mas
+        room.setCode(code); //Le asigna el codigo
+        room.setStatus(RoomStatus.LOBBY); //Le asigna el estado
         room.setHostPlayerId(null);
-        room.setCategory(request.getCategory());
-        room.setImpostorCount(request.getImpostorCount());
-        room.setCurrentRound(0);
+        room.setCategory(request.getCategory()); //Le asigna una categoria
+        room.setImpostorCount(request.getImpostorCount()); //Le asigna los impostores
+        room.setCurrentRound(0); //Estado inicial del juego
 
-        roomRepository.save(room);
+        roomRepository.save(room); //Aqui si ya se guarda en la base de datos
 
         //Crear Host Player
-        Player host = new Player();
-        host.setNickname(request.getHostNickname());
-        host.setAlive(true);
-        host.setRoom(room);
+        Player host = new Player(); //Se crea un objeto Player y lo nombran como anfitrion
+        host.setNickname(request.getHostNickname()); //Se asigna un nombre
+        host.setAlive(true); //Se asigna su estado
+        host.setRoom(room); //Se asigna su sala de juego
 
         //Asigna hostPlayerId a room
-        playerRepository.save(host);
-        room.setHostPlayerId(host.getId());
-        roomRepository.save(room);
+        playerRepository.save(host); //Se guarda en la base de datos
+        room.setHostPlayerId(host.getId()); //Se le asigna el id al anfitrion
+        roomRepository.save(room); // Y se guarda sala
 
-        return  new CreateRoomResponse(room.getCode(), host.getId());
+        return  new CreateRoomResponse(room.getCode(), host.getId()); //Crea el DTO de salida
 
 
     }

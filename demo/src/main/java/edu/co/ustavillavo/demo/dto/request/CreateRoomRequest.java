@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class CreateRoomRequest {
+public class CreateRoomRequest {  //Representa el Json que el cliente manda
 
     @NotBlank                 //No permite que el usuario coloque este campo vacio
     private String hostNickname;
