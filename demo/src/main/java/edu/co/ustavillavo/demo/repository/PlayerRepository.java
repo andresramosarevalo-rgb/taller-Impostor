@@ -9,6 +9,6 @@ import java.util.UUID;
 
 public interface PlayerRepository extends JpaRepository<Player, UUID> {
 
-    List<Player> findByRoom(Room room);
-    long countByRoomAndAliveTrue(Room room);
+    List<Player> findByRoom(Room room);      //Busca jugadores por sala en room
+    long countByRoomAndAliveTrue(Room room); //Cuenta los jugadores registrados
 }
